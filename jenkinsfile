@@ -26,5 +26,6 @@ pipeline {
                 echo "simon ${userInput}"
             }
         }
+        }
     }
 }
