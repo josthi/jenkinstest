@@ -3,7 +3,7 @@ pipeline {
       
     stages {
 
-        stage('Identify-user'){
+        stage('Identify-user') {
             steps {
                 echo "Identify User"
             }
@@ -23,9 +23,8 @@ pipeline {
 
         stage('Build') {
           steps {
-                echo "simon ${userInput}"
-            }
-        }
+                echo "simon"
+          }
         }
     }
 }
