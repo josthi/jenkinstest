@@ -1,4 +1,5 @@
 pipeline {
+def envname = ''
     agent any
     stages {
         stage('Identify-user') {
@@ -14,12 +15,13 @@ pipeline {
                  description:'Environment List', name:'nameChoice', choices: "QA\nUAT\nProduction\nDevelop\nMaster"]
                 ])
                 println(userInput); //Use this value to branch to different logic if needed
+                envname = userInput.trim()
                }
             }
         }
         stage('Build') {
             steps {
-                echo "Input ${userInput}"
+                echo "Input ${envname}"
             }
         }
     }
