@@ -1,5 +1,5 @@
-pipeline {
 def envname = ''
+pipeline {
     agent any
     stages {
         stage('Identify-user') {
