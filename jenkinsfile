@@ -9,7 +9,7 @@ pipeline {
           choices: 'buss\ncorp',
           description: 'Select domain to deploy?')     
         choice(name: 'environment_choice',
-          choices: 'prpeord\nprod',
+          choices: 'prperod\nprod',
           description: 'Select environment to deploy?')
         choice(name: 'component_choice',
           choices: 'gke\nmaptiler\nmonitor\nnexus\njenkins\nproject',
