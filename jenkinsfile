@@ -20,9 +20,13 @@ pipeline {
     }
 
     stages {
-        stage('Identify-user') {
+        stage('ValidateParams') {
             steps {
-                echo "Identify User"
+                if(params.component_choice.equals("jenkins") && (params.domain_choice.equals("corp")) {
+                   echo "Jenkins shouldn't be deployed on the Corp Domain. Aborting the deployment"
+                   currentBuild.result = 'ABORTED'
+                   return
+                }
             }
         }
         stage('Build') {
