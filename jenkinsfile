@@ -9,7 +9,7 @@ pipeline {
           choices: 'buss\ncorp',
           description: 'Select domain to deploy?')     
         choice(name: 'environment_choice',
-          choices: 'preprod\nprod',
+          choices: 'test\npreprod\nprod',
           description: 'Select environment to deploy?')
         choice(name: 'component_choice',
           choices: 'gke\nmaptiler\nmonitor\nnexus\njenkins\nproject',
@@ -22,10 +22,12 @@ pipeline {
     stages {
         stage('ValidateParams') {
             steps {
-                if(params.component_choice.equals("jenkins") && params.domain_choice.equals("corp")) {
-                   echo "Jenkins shouldn't be deployed on the Corp Domain. Aborting the deployment"
-                   currentBuild.result = 'ABORTED'
-                   return
+                script{
+                    if(params.component_choice.equals("jenkins") && params.domain_choice.equals("corp")) {
+                        echo "Jenkins shouldn't be deployed on the Corp Domain. Aborting the deployment"
+                        currentBuild.result = 'ABORTED'
+                        return
+                    }
                 }
             }
         }
