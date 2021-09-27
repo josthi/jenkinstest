@@ -33,10 +33,22 @@ pipeline {
         }
         stage('SCM Checkout') {
             steps {
-                 git branch: 'master',
-                     credentialsID: 'clone'
-                     url: 'ssh://git@github.com:josthi/jenkinstest.git'
-                sh 'ls -al'
+                checkout([
+                    $class: 'GitSCM'
+                    branches: [[name: '*/master']],
+                    extensions: [[
+                        $class: 'SubmoduleOption',
+                        disableSubmodules: false
+                        parentCredentials: true
+                        recursiveSubmodules: true,
+                        reference: '',
+                        trackingSubmodules: true
+                    ]],
+                    userRemoteConfigs: [[
+                        credentialsId: 'clone',
+                        url: 'git@git@github.com:josthi/jenkinstest.git'
+                    ]]
+                ])     
             }
         }
 
