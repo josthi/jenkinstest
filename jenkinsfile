@@ -22,7 +22,7 @@ pipeline {
     stages {
         stage('ValidateParams') {
             steps {
-                if((params.component_choice.equals("jenkins")) && (params.domain_choice.equals("corp"))) {
+                if(params.component_choice.equals("jenkins") && params.domain_choice.equals("corp")) {
                    echo "Jenkins shouldn't be deployed on the Corp Domain. Aborting the deployment"
                    currentBuild.result = 'ABORTED'
                    return
