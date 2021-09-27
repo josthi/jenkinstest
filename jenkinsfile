@@ -31,6 +31,15 @@ pipeline {
                 }
             }
         }
+        stage('SCM Checkout') {
+            steps {
+                 git branch: 'master',
+                     credentialsID: 'josthi'
+                     url: 'ssh://git@github.com:josthi/jenkinstest.git'
+                sh 'ls -al'
+            }
+        }
+        
         stage('Build') {
             steps {
                 echo "Environment ${params.environment_choice}"
