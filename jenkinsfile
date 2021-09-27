@@ -4,48 +4,33 @@ def component = ''
 def comamnd = ''
 pipeline {
     agent any
+    parameters {
+        choice(name: 'domain_choice',
+          choices: 'buss\ncorp',
+          description: 'Select domain to deploy?')     
+        choice(name: 'environment_choice',
+          choices: 'prpeord\nprod',
+          description: 'Select environment to deploy?')
+        choice(name: 'component_choice',
+          choices: 'gke\nmaptiler\nmonitor\nnexus\njenkins\nproject',
+          description: 'Select component to deploy?')
+        choice(name: 'command_choice',
+          choices: 'plan\napply\nsuperapply',
+          description: 'Select command to deploy?')
+    }
+
     stages {
         stage('Identify-user') {
             steps {
                 echo "Identify User"
             }
         }
-        stage('Wait for user to collect deploy parameters?') {
-            steps {
-               script {
-                 def domainName = input(id: 'domainName',message: 'Select Domain to Deploy',
-                 parameters: [[$class: 'ChoiceParameterDefinition', defaultValue: 'strDef',
-                 description:'Domain List', name:'DomainChoice', choices: "buss\ncorp"]
-                 ])
-                 def envName = input(id: 'envName', message: 'Select Environment to Deploy',
-                 parameters: [[$class: 'ChoiceParameterDefinition', defaultValue: 'strDef',
-                 description:'Environment List', name:'EnvChoice', choices: "preprod\nprod"]
-                 ])
-                 def compName = input(id: 'compName', message: 'Select Component to Deploy',
-                 parameters: [[$class: 'ChoiceParameterDefinition', defaultValue: 'strDef',
-                 description:'Component List', name:'ComponentChoice', choices: "gke\nmaptiler\nmonitor\nnexus\njenkins\nproject"]
-                 ])
-                 def commandName = input(id: 'commandName', message: 'Select Terraform Command to execute',
-                 parameters: [[$class: 'ChoiceParameterDefinition', defaultValue: 'strDef',
-                 description:'Command List', name:'CommandChoice', choices: "plan\napply\nsuperapply"]
-                 ])
-                println(envName);
-                println(domainName)
-                println(compName)
-                println(commandName)
-                environment = envName.trim()
-                domain = domainName.trim()
-                component = compName.trim()
-                command = commandName.trim()
-               }
-            }
-        }
         stage('Build') {
             steps {
-                echo "Environment ${environment} "
-                echo "Domain ${domain}"
-                echo "Component ${component}"
-                echo "Terraform Command ${command}"
+                echo "Environment ${params.environment_choice}"
+                echo "Domain ${params.domain_choice}"
+                echo "Component ${params.component_choice}"
+                echo "Terraform Command ${params.command_choice}"
             }
         }
     }
