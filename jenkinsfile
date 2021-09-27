@@ -1,13 +1,10 @@
+@Library('pipeline-logparser')
 pipeline {
     agent any
     options {
        timestamps ()
        ansiColor('xterm')
        buildDiscarder(logRotator(numToKeepStr: '30'))
-
-    }
-    environment {
-
     }
     parameters {
         choice(name: 'domain_choice',
