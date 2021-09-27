@@ -11,7 +11,7 @@ def jobParameters = [
   name:          'Deployment',
   description:   'Deployment job',
   repository:    'git@github.com:josthi/jenkinstest.git',
-  branch:        'master',
+  branch:        '*/master',
   credentialId:  'jenkins-master-key'
 ]
 
