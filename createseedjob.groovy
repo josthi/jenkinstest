@@ -8,7 +8,7 @@ import jenkins.model.Jenkins
 
 // parameters
 def jobParameters = [
-  name:          'Deployment',
+  name:          'Terraformdeployment',
   description:   'Deployment job',
   repository:    'git@github.com:josthi/jenkinstest.git',
   branch:        '*/master',
