@@ -1,9 +1,14 @@
-def environment = ''
-def domain = ''
-def component = ''
-def comamnd = ''
 pipeline {
     agent any
+    options {
+       timestamps ()
+       ansiColor('xterm')
+       buildDiscarder(logRotator(numToKeepStr: '30'))
+
+    }
+    environment {
+
+    }
     parameters {
         choice(name: 'domain_choice',
           choices: 'buss\ncorp',
@@ -18,7 +23,6 @@ pipeline {
           choices: 'plan\napply\nsuperapply',
           description: 'Select command to deploy?')
     }
-
     stages {
         stage('ValidateParams') {
             steps {
@@ -52,12 +56,14 @@ pipeline {
             //}
         //}
 
-        stage('Build') {
+        stage('Deploy') {
             steps {
                 echo "Environment ${params.environment_choice}"
                 echo "Domain ${params.domain_choice}"
                 echo "Component ${params.component_choice}"
                 echo "Terraform Command ${params.command_choice}"
+                echo "Starting the deployment"
+                sh "build_cluster.sh ${params.domain_choice} ${params.environment_choice} ${params.component_choice} ${params.command_choice}"
             }
         }
     }
