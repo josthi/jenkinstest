@@ -59,7 +59,7 @@ pipeline {
                 echo "Component ${params.component_choice}"
                 echo "Terraform Command ${params.command_choice}"
                 echo "Starting the deployment"
-                sh "${|JENKINS_HOME}/workspace/${JOB_NAME}/test.sh ${params.domain_choice} ${params.environment_choice} ${params.component_choice} ${params.command_choice}"
+                sh "${JENKINS_HOME}/workspace/${JOB_NAME}/test.sh ${params.domain_choice} ${params.environment_choice} ${params.component_choice} ${params.command_choice}"
             }
         }
     }
