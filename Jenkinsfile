@@ -18,6 +18,10 @@ pipeline {
         choice(name: 'command_choice',
           choices: 'plan\napply\nsuperapply',
           description: 'Select command to deploy?')
+        string(name: 'branch',
+          defaultValue: 'joseph',
+          description: 'Input the Branch name if you need to change',
+          trim: true)
     }
     stages {
         stage('ValidateParams') {
@@ -59,7 +63,7 @@ pipeline {
                 echo "Component ${params.component_choice}"
                 echo "Terraform Command ${params.command_choice}"
                 echo "Starting the deployment"
-                sh "${JENKINS_HOME}/workspace/${JOB_NAME}/test.sh ${params.domain_choice} ${params.environment_choice} ${params.component_choice} ${params.command_choice}"
+                sh "${JENKINS_HOME}/workspace/${JOB_NAME}/test.sh ${params.domain_choice} ${params.environment_choice} ${params.component_choice} ${params.command_choice} ${params.branch}"
             }
         }
     }
